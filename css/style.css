@@ -1,0 +1,179 @@
+body{
+  background-color: #c9c9c9;
+  text-align: center;
+  font-family:'Open Sans', sans-serif;
+}
+
+.ToDo {
+  width: 50%;
+  height: 800px;
+  max-width: 600px;
+  margin: 0 auto;
+
+  background-color: #89bdd3;
+
+  margin-top: 25px;
+  padding-top: 25px;
+
+  border-radius: 3px;
+}
+
+.ToDo h1{
+  font-size: 48px;
+  color: white;
+  margin-top: 25px;
+}
+
+.todo_list{
+  background-color: #e3e3e3;
+  text-align: left;
+  width: 80%;
+  margin: 0 auto;
+  border-radius: 3px;
+}
+
+ul{
+   list-style-type: none;
+}
+
+li{
+  list-style-type: none;
+  min-height: 45px;
+  line-height: 45px;
+  border-top: 1px solid #c9c9c9;
+  font-weight: bold;
+  font-size: 18px;
+  color: #9ad3de;
+}
+li:nth-child(1){
+  border-top: none;
+}
+
+.kids{
+  border-top: 2px solid #89bdd3
+}
+
+.header{
+  width: 80%;
+  margin: 0 auto;
+  text-align: left;
+}
+.header .header_button{
+      background-color: #9ad3de;
+      border: none;
+      color: white;
+      padding: 15px 30px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 8px;
+      width: 45%;
+}
+
+.header .header_button:focus{
+  border: 1px solid white;
+  outline: none
+}
+
+.add_button{
+    display: inline-block;
+    background-color:white;
+    color: black;
+    border: 2px solid #9ad3de;
+
+    text-align: center;
+}
+
+.add_container{
+  height: 24px;
+  line-height: normal;
+  display: inline-block;
+  float: right;
+}
+
+.input_field{
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 10px;
+  color:black;
+  font-size: 14px;
+  font-weight: normal;
+  margin-left: 10px;
+}
+
+.styled_input{
+  margin-right: 8px;
+  height: 24px;
+  padding-left: 5px;
+  border:none;
+  padding-bottom: 2px;
+  color: #a3a3a3;
+}
+
+.action{
+  color: white;
+  text-align: center;
+  min-height: 60px;
+  line-height: 60px;
+  font-size: 24;
+}
+
+.task_icon{
+  position: relative;
+  display: inline-block;
+  top: 0px;
+  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.task_icon_blue{
+  position: relative;
+  display: inline-block;
+  top: 0px;
+  color: #89bdd3;;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.styled_input:focus {
+  outline: none;
+  border: solid 1px #707070;
+  box-shadow: 0 0 5px 1px #969696;
+}
+
+.subAdd{
+  margin-top: -15px;
+  margin-left: -10px;
+}
+
+.input_field_top{
+  width: 80%;
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 10px;
+}
+
+.home_input{
+  width: 100%;
+  height: 35px;
+  padding-left: 15px;
+  border:none;
+  padding-bottom: 2px;
+  font-size: 20px;
+  border-radius: 3px;
+  color: #a3a3a3;
+}
+
+.home_input.alt{
+  width: 45%;
+}
+
+.home_input:focus {
+  outline: none;
+  border: solid 1px #707070;
+  box-shadow: 0 0 5px 1px #969696;
+}
