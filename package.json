@@ -1,16 +1,17 @@
 {
-  "name": "Matter6",
+  "name": "react-tree-to-do",
   "version": "1.0.0",
-  "description": "Your awesome project!",
+  "description": "react-tree-to-do",
   "main": "bundle.js",
   "scripts": {
     "prestart": "npm run task",
+    "postinstall": "webpack --config ./webpack.prod.config.js --progress --colors",
     "start": "node server/server.js",
     "start-dev": "node server/dev-server.js",
     "lint": "eslint components",
     "task": "webpack"
   },
-  "author": "",
+  "author": "James Quigley",
   "license": "ISC",
   "babel": {
     "presets": [
@@ -18,7 +19,7 @@
       "es2015",
       "stage-0"
     ]
-  }, 
+  },
   "devDependencies": {
     "watchify": "^3.2.2"
   },
