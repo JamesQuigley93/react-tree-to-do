@@ -58,7 +58,7 @@
 
 	var _reactDom = __webpack_require__(158);
 
-	var _ToDo = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./ToDo\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _ToDo = __webpack_require__(159);
 
 	var _ToDo2 = _interopRequireDefault(_ToDo);
 
@@ -19791,6 +19791,577 @@
 
 	module.exports = __webpack_require__(3);
 
+
+/***/ },
+/* 159 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Tree = __webpack_require__(160);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ToDo = function (_Component) {
+	  _inherits(ToDo, _Component);
+
+	  function ToDo(props) {
+	    _classCallCheck(this, ToDo);
+
+	    var _this = _possibleConstructorReturn(this, (ToDo.__proto__ || Object.getPrototypeOf(ToDo)).call(this, props));
+
+	    _this.state = {
+	      newTask: '',
+	      newParent: '',
+	      action: '',
+	      message: '',
+	      delTask: '',
+	      promote: '',
+	      assign: '',
+	      assignTarget: false,
+	      assignParent: '',
+	      addForm: false,
+	      tree: new _Tree.Tree('')
+	    };
+	    _this.onTaskChange = _this.onTaskChange.bind(_this);
+	    _this.onParentChange = _this.onParentChange.bind(_this);
+	    _this.onPromoChange = _this.onPromoChange.bind(_this);
+	    _this.onAssignParentChange = _this.onAssignParentChange.bind(_this);
+	    _this.onAssignChange = _this.onAssignChange.bind(_this);
+	    _this.onAddSubmit = _this.onAddSubmit.bind(_this);
+	    _this.onPromoButtonSubmit = _this.onPromoButtonSubmit.bind(_this);
+	    _this.onAssignTargetSubmit = _this.onAssignTargetSubmit.bind(_this);
+	    _this.onAssignDestSubmit = _this.onAssignDestSubmit.bind(_this);
+	    _this.renderPromoteButton = _this.renderPromoteButton.bind(_this);
+	    _this.renderAssignTask = _this.renderAssignTask.bind(_this);
+	    _this.renderAddTask = _this.renderAddTask.bind(_this);
+	    _this.renderAddSubTask = _this.renderAddSubTask.bind(_this);
+	    _this.renderTree = _this.renderTree.bind(_this);
+	    _this.renderOptionButtons = _this.renderOptionButtons.bind(_this);
+	    _this.renderAction = _this.renderAction.bind(_this);
+	    _this.renderAddButton = _this.renderAddButton.bind(_this);
+	    _this.onAddButtonSubmit = _this.onAddButtonSubmit.bind(_this);
+	    _this.renderNode = _this.renderNode.bind(_this);
+	    _this.onDelButtonSubmit = _this.onDelButtonSubmit.bind(_this);
+	    _this.renderDelButton = _this.renderDelButton.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(ToDo, [{
+	    key: 'onTaskChange',
+	    value: function onTaskChange(event) {
+	      this.setState({ newTask: event.target.value });
+	    }
+	  }, {
+	    key: 'onParentChange',
+	    value: function onParentChange(event) {
+	      this.setState({ newParent: event.target.value });
+	    }
+	  }, {
+	    key: 'onPromoChange',
+	    value: function onPromoChange(event) {
+	      this.setState({ promote: event.target.value });
+	    }
+	  }, {
+	    key: 'onAssignChange',
+	    value: function onAssignChange(event) {
+	      this.setState({ assign: event.target.value });
+	    }
+	  }, {
+	    key: 'onAssignParentChange',
+	    value: function onAssignParentChange(event) {
+	      this.setState({ assignParent: event.target.value });
+	    }
+	  }, {
+	    key: 'onAddSubmit',
+	    value: function onAddSubmit(event) {
+	      event.preventDefault();
+	      this.state.tree.add(this.state.newTask, this.state.newParent, this.state.tree.traverse);
+	      this.setState({
+	        newTask: '',
+	        newParent: '',
+	        action: ''
+	      });
+	      if (this.state.form_val) {
+	        var form_val = false;
+	        this.setState({ addForm: form_val });
+	      }
+	    }
+	  }, {
+	    key: 'onPromoButtonSubmit',
+	    value: function onPromoButtonSubmit(task) {
+	      var tree = this.state.tree;
+	      var term = task;
+	      var target;
+	      tree.contains(function (node) {
+	        if (node.data === term) {
+	          target = node;
+	        }
+	      }, tree.traverse);
+	      var newParent = target.parent.parent.data;
+	      tree.addBranch(target, newParent, tree.traverse);
+	      tree.remove(target.data, target.parent.data, tree.traverse);
+	      this.setState({
+	        tree: tree,
+	        promote: ''
+	      });
+	    }
+	  }, {
+	    key: 'onAssignTargetSubmit',
+	    value: function onAssignTargetSubmit(event) {
+	      event.preventDefault();
+	      var tree = this.state.tree;
+	      var term = this.state.assign;
+
+	      this.setState({
+	        assignTarget: true });
+	    }
+	  }, {
+	    key: 'onAssignDestSubmit',
+	    value: function onAssignDestSubmit(event) {
+	      event.preventDefault();
+	      var target = this.state.assignTarget;
+	      var tree = this.state.tree;
+	      var term = this.state.assign;
+	      var destination = this.state.assignParent;
+	      var target;
+	      tree.contains(function (node) {
+	        if (node.data === term) {
+	          target = node;
+	        }
+	      }, tree.traverse);
+
+	      var newParent;
+	      tree.contains(function (node) {
+	        if (node.data === destination) {
+	          newParent = node;
+	        }
+	      }, tree.traverse);
+	      tree.addBranch(target, newParent.data, tree.traverse);
+	      tree.remove(target.data, target.parent.data, tree.traverse);
+	      this.setState({
+	        tree: tree,
+	        assignTarget: false,
+	        assign: '',
+	        assignParent: ''
+	      });
+	    }
+	  }, {
+	    key: 'onAddButtonSubmit',
+	    value: function onAddButtonSubmit(parent) {
+	      this.setState({ newParent: parent });
+	      var form_val = true;
+	      this.setState({
+	        addForm: form_val,
+	        newParent: parent,
+	        action: 'hide'
+	      });
+	    }
+	  }, {
+	    key: 'onDelButtonSubmit',
+	    value: function onDelButtonSubmit(task) {
+	      var tree = this.state.tree;
+	      var term = task;
+	      var parent;
+	      tree.contains(function (node) {
+	        if (node.data === term) {
+	          parent = node.parent;
+	        }
+	      }, tree.traverse);
+	      tree.remove(term, parent.data, tree.traverse);
+	      this.setState({
+	        tree: tree,
+	        action: ''
+	      });
+	    }
+	  }, {
+	    key: 'renderAddSubTask',
+	    value: function renderAddSubTask() {
+	      return _react2.default.createElement(
+	        'form',
+	        { onSubmit: this.onAddSubmit, className: 'input_field' },
+	        _react2.default.createElement('input', {
+	          placeholder: 'What needs to be done?',
+	          value: this.state.newTask,
+	          onChange: this.onTaskChange,
+	          className: 'styled_input' })
+	      );
+	    }
+	  }, {
+	    key: 'renderAddButton',
+	    value: function renderAddButton(parent) {
+	      var _this2 = this;
+
+	      if (this.state.addForm && this.state.newParent === parent) {
+	        return [_react2.default.createElement(
+	          'div',
+	          { key: 'blue_pluss', onClick: function onClick() {
+	              return _this2.onAddButtonSubmit(parent);
+	            }, className: 'task_icon_blue' },
+	          _react2.default.createElement('span', { className: 'glyphicon glyphicon-plus' })
+	        ), _react2.default.createElement(
+	          'div',
+	          { key: 'text_box', className: 'subAdd' },
+	          this.renderAddSubTask()
+	        )];
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          { onClick: function onClick() {
+	              return _this2.onAddButtonSubmit(parent);
+	            }, className: 'task_icon' },
+	          _react2.default.createElement('span', { className: 'glyphicon glyphicon-plus' })
+	        );
+	      }
+	    }
+	  }, {
+	    key: 'renderDelButton',
+	    value: function renderDelButton(node) {
+	      var _this3 = this;
+
+	      return _react2.default.createElement(
+	        'div',
+	        { onClick: function onClick() {
+	            return _this3.onDelButtonSubmit(node);
+	          }, className: 'task_icon' },
+	        _react2.default.createElement('span', { className: 'glyphicon glyphicon-remove' })
+	      );
+	    }
+	  }, {
+	    key: 'renderAddTask',
+	    value: function renderAddTask() {
+	      return _react2.default.createElement(
+	        'form',
+	        { onSubmit: this.onAddSubmit, className: 'input_field_top' },
+	        _react2.default.createElement('input', {
+	          placeholder: 'What needs to be done?',
+	          value: this.state.newTask,
+	          onChange: this.onTaskChange,
+	          className: 'home_input' })
+	      );
+	    }
+	  }, {
+	    key: 'renderPromoteButton',
+	    value: function renderPromoteButton(node) {
+	      var _this4 = this;
+
+	      if (node.parent.data != '') {
+	        return _react2.default.createElement(
+	          'div',
+	          { onClick: function onClick() {
+	              return _this4.onPromoButtonSubmit(node.data);
+	            }, className: 'task_icon' },
+	          _react2.default.createElement('span', { className: 'glyphicon glyphicon-arrow-up' })
+	        );
+	      } else {
+	        return;
+	      }
+	    }
+	  }, {
+	    key: 'renderAssignTask',
+	    value: function renderAssignTask() {
+	      if (this.state.assignTarget) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          ' ',
+	          _react2.default.createElement(
+	            'b',
+	            null,
+	            this.state.assign
+	          ),
+	          ' will be moved '
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'form',
+	          { onSubmit: this.onAssignTargetSubmit, className: 'input_field_top' },
+	          _react2.default.createElement('input', {
+	            placeholder: 'What is moving?',
+	            value: this.state.assign,
+	            onChange: this.onAssignChange,
+	            className: 'home_input' })
+	        );
+	      }
+	    }
+	  }, {
+	    key: 'renderAssignDest',
+	    value: function renderAssignDest() {
+	      if (this.state.assignTarget) {
+	        return _react2.default.createElement(
+	          'form',
+	          { onSubmit: this.onAssignDestSubmit, className: 'input_field_top' },
+	          _react2.default.createElement('input', {
+	            placeholder: 'Where is it going?',
+	            value: this.state.assignParent,
+	            onChange: this.onAssignParentChange,
+	            className: 'home_input' })
+	        );
+	      } else {
+	        return;
+	      }
+	    }
+	  }, {
+	    key: 'renderNode',
+	    value: function renderNode(node) {
+
+	      if (node.data === '') {
+	        return node.children.map(this.renderNode);
+	      } else if (node.children.length != 0 && node.data != '') {
+	        return _react2.default.createElement(
+	          'li',
+	          { key: node.data },
+	          ' ',
+	          node.data,
+	          ' ',
+	          this.renderPromoteButton(node),
+	          ' ',
+	          this.renderDelButton(node.data),
+	          ' ',
+	          this.renderAddButton(node.data),
+	          '  ',
+	          _react2.default.createElement(
+	            'ul',
+	            { className: 'kids' },
+	            node.children.map(this.renderNode)
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'li',
+	          { key: node.data },
+	          ' ',
+	          node.data,
+	          ' ',
+	          this.renderPromoteButton(node),
+	          ' ',
+	          this.renderDelButton(node.data),
+	          ' ',
+	          this.renderAddButton(node.data),
+	          ' '
+	        );
+	      }
+	    }
+	  }, {
+	    key: 'renderTree',
+	    value: function renderTree(tree) {
+	      var data = [];
+	      var base = tree._root;
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'todo_list' },
+	        this.renderNode(base)
+	      );
+	    }
+	  }, {
+	    key: 'renderOptionButtons',
+	    value: function renderOptionButtons() {
+	      var _this5 = this;
+
+	      return [_react2.default.createElement(
+	        'button',
+	        { type: 'button', className: 'header_button', key: 'Add Task', onClick: function onClick() {
+	            return _this5.setState({ action: 'Add Task' });
+	          } },
+	        'Add Task'
+	      ), _react2.default.createElement(
+	        'button',
+	        { type: 'button', className: 'header_button pull-right', key: 'Move a Task', onClick: function onClick() {
+	            return _this5.setState({ action: 'Move a Task' });
+	          } },
+	        'Re-assign a Task'
+	      )];
+	    }
+	  }, {
+	    key: 'renderAction',
+	    value: function renderAction() {
+	      switch (this.state.action) {
+	        case 'Add Task':
+	          return _react2.default.createElement(
+	            'div',
+	            { className: 'action' },
+	            this.renderAddTask()
+	          );
+	        case 'Move a Task':
+	          return _react2.default.createElement(
+	            'div',
+	            { className: 'action' },
+	            this.renderAssignTask(),
+	            this.renderAssignDest()
+	          );
+	        case 'hide':
+	          return _react2.default.createElement(
+	            'div',
+	            { className: 'action' },
+	            'Adding sub task'
+	          );
+	        default:
+	          return _react2.default.createElement(
+	            'div',
+	            { className: 'action' },
+	            ' ',
+	            this.renderAddTask()
+	          );
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'ToDo' },
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          ' React Tree To Do '
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'header' },
+	          this.renderOptionButtons()
+	        ),
+	        this.renderAction(),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'todo_list' },
+	          _react2.default.createElement(
+	            'ul',
+	            null,
+	            this.renderTree(this.state.tree)
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return ToDo;
+	}(_react.Component);
+
+	exports.default = ToDo;
+
+/***/ },
+/* 160 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	function Node(data) {
+	    this.data = data;
+	    this.parent = null;
+	    this.children = [];
+	}
+
+	function Tree(data) {
+	    var node = new Node(data);
+	    this._root = node;
+	}
+
+	Tree.prototype.traverse = function (callback) {
+	    (function recurse(currentNode) {
+	        for (var i = 0, length = currentNode.children.length; i < length; i++) {
+	            recurse(currentNode.children[i]);
+	        }
+
+	        callback(currentNode);
+	    })(this._root);
+	};
+
+	Tree.prototype.contains = function (callback, traversal) {
+	    traversal.call(this, callback);
+	};
+
+	Tree.prototype.add = function (data, toData, traversal) {
+	    var child = new Node(data),
+	        parent = null,
+	        callback = function callback(node) {
+	        if (node.data === toData) {
+	            parent = node;
+	        }
+	    };
+	    this.contains(callback, traversal);
+	    if (parent) {
+	        parent.children.push(child);
+	        child.parent = parent;
+	    } else {
+	        throw new Error('Cannot add node to a non-existent parent.');
+	    }
+	};
+
+	Tree.prototype.remove = function (data, fromData, traversal) {
+	    var tree = this,
+	        parent = null,
+	        childToRemove = null,
+	        index;
+
+	    var callback = function callback(node) {
+	        if (node.data === fromData) {
+	            parent = node;
+	        }
+	    };
+	    this.contains(callback, traversal);
+	    if (parent) {
+	        index = findIndex(parent.children, data);
+	        if (index === undefined) {
+	            throw new Error('Node to remove does not exist.');
+	        } else {
+	            childToRemove = parent.children.splice(index, 1);
+	        }
+	    } else {
+	        throw new Error('Parent does not exist.');
+	    }
+	    return childToRemove;
+	};
+
+	function findIndex(arr, data) {
+	    var index;
+	    for (var i = 0; i < arr.length; i++) {
+	        if (arr[i].data === data) {
+	            index = i;
+	        }
+	    }
+	    return index;
+	}
+
+	Tree.prototype.addBranch = function (node, fromData, traversal) {
+	    var tree = this;
+	    var children = node.children;
+	    var parent;
+	    tree.contains(function (node) {
+	        if (node.data === fromData) {
+	            parent = node;
+	        }
+	    }, traversal);
+	    tree.add(node.data, parent.data, traversal);
+	    if (children === undefined) {
+	        return;
+	    } else {
+	        for (var i in children) {
+	            tree.addBranch(children[i], node.data, traversal);
+	        }
+	    }
+	};
+
+	exports.Node = Node;
+	exports.Tree = Tree;
 
 /***/ }
 /******/ ]);

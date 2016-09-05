@@ -5,7 +5,6 @@
   "main": "bundle.js",
   "scripts": {
     "prestart": "npm run task",
-    "postinstall": "webpack --config ./webpack.prod.config.js --progress --colors",
     "start": "node server/server.js",
     "start-dev": "node server/dev-server.js",
     "lint": "eslint components",

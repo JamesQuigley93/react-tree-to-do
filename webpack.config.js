@@ -2,7 +2,7 @@ module.exports = {
   entry: './components/App.js',
   output: {
   	path: './build',
-    filename: 'bundle.js'       
+    filename: 'bundle.js'
   },
   module: {
     loaders: [
