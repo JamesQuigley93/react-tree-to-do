@@ -284,7 +284,7 @@ renderAction(){
     case 'hide':
             return <div className ='action'>Adding sub task</div>
     default:
-        return <div className ='action'> {this.renderAddTask()}</div>
+        return <div className ='action'> </div>
   }
 }
 
@@ -297,6 +297,8 @@ renderAction(){
         </div>
         {this.renderAction()}
       <div className='todo_list'>
+        <h1> My To Do List </h1>
+        <div className = "line"></div>
         <ul>{this.renderTree(this.state.tree)}</ul>
       </div>
 
